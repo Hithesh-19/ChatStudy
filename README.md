@@ -78,53 +78,32 @@ Client-server chat applications are foundational to real-time communication over
 ### Client
 ```python
 import socket
-s = socket.socket()
-host = input(str('Enter hostname or host IP: ')) 
-port= 8080
-s.connect((host, port))
-print('Connected to chat server')
-while 1:
-    incoming_message = s.recv(1024)
-    incoming_message = incoming_message.decode() 
-    print(' Server: ',incoming_message) 
-    print()
-    message = input(str('>>'))
-    message = message.encode()
-    s.send(message)
-    print('Sent')
-    print()
+from datetime import datetime
+s=socket.socket()
+s.bind(('localhost', 8000))
+s.listen(5)
+c,addr=s.accept()
+print("Client Address : ",addr)
+now = datetime.now()
+c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
+ack=c.recv(1024).decode()
+if ack:
+    print(ack)
+    c.close()
 ```
 
 ### Server
 ```python
 import socket
-s = socket.socket()
-host = socket.gethostname()
-print(' Server will start on host: ',host) 
-port = 8080
-s.bind((host, port))
-print()
-print('Waiting for connection')
-print()
-s.listen(1)
-conn, addr = s.accept()
-print(addr, 'Has connected to the server') 
-print()
-while 1:
-    message =input(str('>>'))
-    message =message.encode()
-    conn.send(message) 
-    print('Sent')
-    print()
-    incoming_message = conn.recv(1024)
-    incoming_message =incoming_message.decode()
-    print(' Client:',
-    incoming_message) 
-    print()
+s=socket.socket()
+s.connect(('localhost', 8000))
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("acknowledgement recived from the server".encode())
 ```
 
 ## Output
-<img width="1322" height="458" alt="Screenshot 2026-08-01 121526" src="https://github.com/user-attachments/assets/1214925f-4ec4-4aae-a64c-584f6db2371e" />
+![Uploading Screenshot 2026-08-05 082726.png…]()
 
 
 ## Result:
