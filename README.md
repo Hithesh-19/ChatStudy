@@ -103,7 +103,8 @@ s.send("acknowledgement recived from the server".encode())
 ```
 
 ## Output
-![Uploading Screenshot 2026-08-05 082726.png…]()
+<img width="1342" height="283" alt="Screenshot 2026-08-05 082726" src="https://github.com/user-attachments/assets/ff80ed21-634a-4a7b-874a-a3afbfb72f40" />
+
 
 
 ## Result:
